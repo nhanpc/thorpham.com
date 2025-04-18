@@ -1,0 +1,245 @@
+
+/* Basic Reset & Body Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    /* Default sans-serif font */
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f9fa;
+    /* Light grey background like the image */
+    padding: 20px;
+    /* Add padding around the whole page on mobile */
+}
+
+/* Container for centering content on larger screens */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    /* Center the container */
+    overflow: hidden;
+    /* Clear floats or contain margins */
+}
+
+/* Intro Section - Mobile First (Default) */
+.intro-section {
+    background-color: #fff;
+    /* White background for the intro card */
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    /* Optional: slightly rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+}
+
+.image-container {
+    text-align: center;
+    /* Center image on mobile */
+    margin-bottom: 20px;
+}
+
+.profile-photo {
+    max-width: 200px;
+    /* Control max size on mobile */
+    width: 100%;
+    /* Make it responsive */
+    height: auto;
+    border-radius: 50%;
+    /* Make it circular */
+    display: inline-block;
+    /* Allows centering via text-align */
+    border: 3px solid #eee;
+    /* Optional: slight border */
+}
+
+.greeting {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+    /* Line under Hello, */
+    display: inline-block;
+    /* Make border only as wide as text */
+}
+
+.bio {
+    font-family: 'Merriweather', serif;
+    /* Serif font for bio */
+    font-size: 1.2em;
+    /* Slightly larger bio text */
+    line-height: 1.7;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+.connect {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.connect a {
+    color: #007bff;
+    /* Standard link blue */
+    text-decoration: none;
+    word-break: break-all;
+    /* Prevent long URLs from breaking layout */
+}
+
+.connect a:hover {
+    text-decoration: underline;
+}
+
+/* Ventures Section */
+.ventures-section {
+    padding: 20px;
+    text-align: center;
+    /* Center heading and logos on mobile */
+    background-color: #fff;
+    /* White background */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.ventures-section h2 {
+    margin-bottom: 25px;
+    color: #333;
+    font-weight: normal;
+    font-size: 1.5em;
+}
+
+.logo-container {
+    display: flex;
+    /* Use flexbox for logo alignment */
+    justify-content: center;
+    /* Center logos horizontally */
+    align-items: center;
+    /* Align logos vertically */
+    flex-wrap: wrap;
+    /* Allow logos to wrap on smaller screens */
+    gap: 30px;
+    /* Space between logos */
+}
+
+.company-logo-link {
+    display: inline-block;
+    /* Needed for spacing/sizing */
+}
+
+.company-logo {
+    max-height: 60px;
+    /* Control logo height */
+    max-width: 150px;
+    /* Control logo width */
+    width: auto;
+    /* Maintain aspect ratio */
+    height: auto;
+    /* Maintain aspect ratio */
+    vertical-align: middle;
+    /* Helps alignment */
+}
+
+/* --- Desktop Styles --- */
+/* Apply styles when screen width is 768px or wider */
+@media (min-width: 768px) {
+    body {
+        padding: 40px;
+        /* More padding on desktop */
+    }
+
+    .intro-section {
+        display: flex;
+        /* Arrange image and text side-by-side */
+        align-items: center;
+        /* Vertically align image and text */
+        gap: 40px;
+        /* Space between image and text */
+        padding: 40px;
+    }
+
+    .image-container {
+        flex: 0 0 35%;
+        /* Image container takes up ~35% of the width */
+        max-width: 300px;
+        /* Max width for image container */
+        margin-bottom: 0;
+        /* Remove bottom margin on desktop */
+        text-align: left;
+        /* Align image container to the left */
+    }
+
+    .profile-photo {
+        max-width: 100%;
+        /* Allow image to fill its container */
+        border-radius: 8px;
+        /* Square corners as in the draft */
+    }
+
+    .text-container {
+        flex: 1;
+        /* Text container takes remaining space */
+    }
+
+    .bio {
+        font-size: 1.3em;
+        /* Slightly larger text on desktop */
+    }
+
+    .ventures-section {
+        text-align: left;
+        /* Align heading to the left */
+        padding: 30px 40px;
+    }
+
+    .logo-container {
+        justify-content: flex-start;
+        /* Align logos to the left */
+    }
+}
+
+/* Optional: Subtle background curves (simulated with gradients) */
+body::before {
+    content: '';
+    position: fixed;
+    /* Or absolute if container is relative */
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    /* Adjust height */
+    background: linear-gradient(to bottom, rgba(220, 220, 220, 0.3), transparent);
+    z-index: -1;
+    /* Place behind content */
+    border-bottom-left-radius: 50% 30px;
+    /* Create curve */
+    border-bottom-right-radius: 50% 30px;
+    /* Create curve */
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    /* Or absolute */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    /* Adjust height */
+    background: linear-gradient(to top, rgba(220, 220, 220, 0.3), transparent);
+    z-index: -1;
+    border-top-left-radius: 50% 30px;
+    /* Create curve */
+    border-top-right-radius: 50% 30px;
+    /* Create curve */
+}
+
+/* Adjust container padding if using fixed pseudo-elements to avoid overlap */
+/* .container { padding-top: 20px; padding-bottom: 20px; position: relative; z-index: 1; } */
+/* Note: The pseudo-element curves are a simple approximation and might need tweaking */
