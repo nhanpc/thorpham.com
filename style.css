@@ -1,4 +1,3 @@
-
 /* Basic Reset & Body Styles */
 * {
     box-sizing: border-box;
@@ -6,240 +5,549 @@
     padding: 0;
 }
 
-body {
-    font-family: 'Lato', sans-serif;
-    /* Default sans-serif font */
-    line-height: 1.6;
-    color: #333;
-    background-color: #f8f9fa;
-    /* Light grey background like the image */
-    padding: 20px;
-    /* Add padding around the whole page on mobile */
+html {
+    scroll-behavior: smooth;
 }
 
-/* Container for centering content on larger screens */
+body {
+    font-family: 'Lato', sans-serif;
+    line-height: 1.6;
+    color: #e0e0e0;
+    /* Default light text for dark bg */
+    /* Background color is set on animation div */
+    padding: 20px 20px 0 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* === UPDATED: Deep Space Sci-Fi Background Animation (More Visible) === */
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    background-color: #00020c;
+    /* Very dark blue base */
+    /* --- Increased Visibility --- */
+    --star-color: rgba(220, 235, 255, 0.85);
+    /* Brighter, less transparent stars */
+    --nebula-color-1: rgba(74, 36, 177, 0.438);
+    /* Slightly brighter/more opaque purple nebula */
+    --nebula-color-2: rgba(127, 45, 148, 0.616);
+    /* Slightly brighter/more opaque blue nebula */
+    --grid-color: rgba(80, 110, 190, 0.15);
+    /* More visible blue grid */
+    /* --- End Increased Visibility --- */
+
+    background-image:
+        /* Layer 1: Far Stars (Small, slow) */
+        radial-gradient(1px 1px at 20% 30%, var(--star-color), transparent 90%),
+        radial-gradient(1px 1px at 80% 60%, var(--star-color), transparent 0%),
+        radial-gradient(1px 1px at 50% 80%, var(--star-color), transparent 40%),
+        /* Layer 2: Nearer Stars (Slightly larger, faster) */
+        radial-gradient(1.5px 1.5px at 10% 80%, var(--star-color), transparent 90%),
+        radial-gradient(1.5px 1.5px at 70% 10%, var(--star-color), transparent 75%),
+        radial-gradient(1.5px 1.5px at 40% 40%, var(--star-color), transparent 80%),
+        /* Layer 3: Nebula Clouds (Large, very slow drift) */
+        radial-gradient(ellipse at 30% 20%, var(--nebula-color-1) 0%, transparent 70%),
+        radial-gradient(ellipse at 70% 80%, var(--nebula-color-2) 0%, transparent 60%),
+        /* Layer 4: Tech Grid (Subtle, slow scroll) */
+        /* Made grid lines slightly thicker */
+        repeating-linear-gradient(0deg, transparent, transparent 49px, var(--grid-color) 49.5px, var(--grid-color) 50.5px, transparent 51px, transparent 100px),
+        repeating-linear-gradient(90deg, transparent, transparent 49px, var(--grid-color) 49.5px, var(--grid-color) 50.5px, transparent 51px, transparent 100px);
+
+
+    background-size:
+        /* Stars */
+        500px 500px, 400px 400px, 300px 300px,
+        /* Stars */
+        250px 250px, 200px 200px, 150px 150px,
+        /* Nebula */
+        100% 100%, 100% 100%,
+        /* Grid */
+        100px 100px, 100px 100px;
+
+    background-position:
+        /* Initial positions */
+        0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+
+    /* Optional: Slightly faster grid scroll */
+    animation:
+        moveStarsFar 1s linear infinite,
+        moveStarsNear 2s linear infinite,
+        driftNebula 5s ease-in-out infinite alternate,
+        scrollGrid 10s linear infinite;
+    /* Sped up grid slightly */
+}
+
+
+@keyframes moveStarsFar {
+    from {
+        background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+    }
+
+    /* Move first 3 star layers by one full tile size */
+    to {
+        background-position: -100% -100%, -100% -100%, -100% -100%, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+    }
+}
+
+@keyframes moveStarsNear {
+    from {
+        background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+    }
+
+    /* Move next 3 star layers by one full tile size */
+    to {
+        background-position: 0 0, 0 0, 0 0, 100% 100%, 100% 100%, 100% 100%, 0 0, 0 0, 0 0, 0 0;
+    }
+}
+
+@keyframes driftNebula {
+    from {
+        background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0% 0%, 100% 100%, 0 0, 0 0;
+    }
+
+    to {
+        background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 10% 10%, 90% 90%, 0 0, 0 0;
+    }
+}
+
+@keyframes scrollGrid {
+    from {
+        background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+    }
+
+    /* Increased distance for faster perceived scroll */
+    to {
+        background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 100px 100px, -100px -100px;
+    }
+}
+
+/* End Background Animation */
+
+
+/* Container */
 .container {
     max-width: 1100px;
     margin: 0 auto;
-    /* Center the container */
     overflow: hidden;
-    /* Clear floats or contain margins */
+    position: relative;
+    z-index: 1;
 }
 
-/* Intro Section - Mobile First (Default) */
+/* Animation Keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply Fade-in Animation */
+.animate-fade-in {
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Stagger animations */
 .intro-section {
-    background-color: #fff;
-    /* White background for the intro card */
+    animation-delay: 0.1s;
+}
+
+/* .connect-section no longer exists */
+.ventures-section {
+    animation-delay: 0.3s;
+}
+
+/* Keep ventures delay */
+.site-footer {
+    animation-delay: 0.4s;
+}
+
+
+/* Intro Section */
+.intro-section {
+    background-color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(6px);
     padding: 25px;
     margin-bottom: 30px;
-    border-radius: 8px;
-    /* Optional: slightly rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    /* Subtle shadow */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    /* Text inside this section should be dark */
+    color: #333;
 }
 
 .image-container {
     text-align: center;
-    /* Center image on mobile */
     margin-bottom: 20px;
 }
 
 .profile-photo {
-    max-width: 200px;
-    /* Control max size on mobile */
+    max-width: 180px;
     width: 100%;
-    /* Make it responsive */
     height: auto;
     border-radius: 50%;
-    /* Make it circular */
     display: inline-block;
-    /* Allows centering via text-align */
-    border: 3px solid #eee;
-    /* Optional: slight border */
+    border: 4px solid #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.profile-photo:hover {
+    transform: scale(1.05);
 }
 
 .greeting {
-    font-size: 1.1em;
-    color: #555;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #2c3e50;
     margin-bottom: 15px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #eee;
-    /* Line under Hello, */
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0;
     display: inline-block;
-    /* Make border only as wide as text */
 }
 
 .bio {
     font-family: 'Merriweather', serif;
-    /* Serif font for bio */
     font-size: 1.2em;
-    /* Slightly larger bio text */
-    line-height: 1.7;
-    margin-bottom: 20px;
-    color: #444;
+    line-height: 1.75;
+    margin-bottom: 10px;
+    color: #34495e;
 }
 
-.connect {
-    font-size: 0.9em;
-    color: #666;
+/* === MOVED: Connect Section Styles (Adapted) === */
+.connect-within-intro {
+    margin-top: 30px;
+    /* Space above the connect heading */
+    padding-top: 20px;
+    /* Optional: Add padding */
+    border-top: 1px solid #eee;
+    /* Subtle separator line */
+    text-align: center;
+    /* Center the heading and links */
 }
 
-.connect a {
-    color: #007bff;
-    /* Standard link blue */
+.connect-heading {
+    /* Specific class for the moved heading */
+    font-size: 1.6em;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.connect-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    /* Reduced gap slightly */
+}
+
+.connect-links a {
+    color: #3498db;
     text-decoration: none;
-    word-break: break-all;
-    /* Prevent long URLs from breaking layout */
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    /* Slightly smaller padding */
+    border: 1px solid #aed6f1;
+    border-radius: 25px;
+    background-color: #fdfefe;
+    transition: all 0.3s ease;
+    font-size: 1.05em;
+    /* Slightly smaller font */
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.connect a:hover {
-    text-decoration: underline;
+.connect-links a:hover {
+    background-color: #eaf2f8;
+    border-color: #85c1e9;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
+    color: #2980b9;
 }
+
+.connect-links i {
+    font-size: 1.3em;
+}
+
+/* Slightly smaller icon */
+/* === END MOVED Connect Section Styles === */
+
+
+/* === REMOVED: .connect-section specific styles (background, padding, etc.) === */
+
 
 /* Ventures Section */
 .ventures-section {
-    padding: 20px;
-    text-align: center;
-    /* Center heading and logos on mobile */
-    background-color: #fff;
-    /* White background */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 30px 0;
+    background-color: transparent;
     margin-bottom: 30px;
 }
 
-.ventures-section h2 {
-    margin-bottom: 25px;
-    color: #333;
-    font-weight: normal;
-    font-size: 1.5em;
+.ventures-title {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #f0f0f0;
+    /* Light text color on dark background */
+    font-weight: bold;
+    font-size: 2em;
 }
 
-.logo-container {
+.ventures-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 35px;
+}
+
+.venture-item {
+    background-color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(6px);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     display: flex;
-    /* Use flexbox for logo alignment */
-    justify-content: center;
-    /* Center logos horizontally */
+    flex-direction: column;
     align-items: center;
-    /* Align logos vertically */
-    flex-wrap: wrap;
-    /* Allow logos to wrap on smaller screens */
-    gap: 30px;
-    /* Space between logos */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    /* Text inside venture items should be dark */
+    color: #333;
+}
+
+.venture-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .company-logo-link {
-    display: inline-block;
-    /* Needed for spacing/sizing */
+    display: block;
+    margin-bottom: 25px;
+    max-width: 180px;
+    min-height: 60px;
+    line-height: 0;
 }
 
 .company-logo {
-    max-height: 60px;
-    /* Control logo height */
-    max-width: 150px;
-    /* Control logo width */
+    max-height: 70px;
+    max-width: 100%;
     width: auto;
-    /* Maintain aspect ratio */
     height: auto;
-    /* Maintain aspect ratio */
     vertical-align: middle;
-    /* Helps alignment */
+    display: inline-block;
+    /* filter: brightness(0) invert(1); */
+    /* Uncomment if logos are dark */
 }
 
+.venture-details h3 {
+    font-size: 1.5em;
+    margin-bottom: 12px;
+    color: #1a1a1a;
+    /* Dark text */
+}
+
+.venture-description {
+    font-size: 1.05em;
+    color: #555;
+    /* Dark grey text */
+    line-height: 1.65;
+    margin-bottom: 20px;
+}
+
+.venture-link {
+    display: inline-block;
+    font-weight: bold;
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    padding: 5px 0;
+}
+
+.venture-link i {
+    margin-left: 6px;
+    transition: transform 0.3s ease;
+}
+
+.venture-link:hover {
+    color: #2980b9;
+}
+
+.venture-link:hover i {
+    transform: translateX(5px);
+}
+
+/* Footer Styles */
+.site-footer {
+    background-color: rgba(240, 243, 246, 0.85);
+    backdrop-filter: blur(5px);
+    color: #495057;
+    /* Darker grey text for light bg */
+    padding: 25px 0;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 0.95em;
+    border-top: 1px solid rgba(222, 226, 230, 0.7);
+}
+
+.site-footer .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5px 15px;
+}
+
+.site-footer .fa-heart {
+    color: #dc3545;
+    margin: 0 3px;
+    font-size: 1em;
+    vertical-align: baseline;
+}
+
+.footer-connect-prompt {
+    margin-left: 5px;
+}
+
+.footer-social-icons a {
+    color: #495057;
+    text-decoration: none;
+    margin: 0 6px;
+    font-size: 1.5em;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.footer-social-icons a:hover {
+    color: #3498db;
+    transform: scale(1.15) translateY(-2px);
+}
+
+
 /* --- Desktop Styles --- */
-/* Apply styles when screen width is 768px or wider */
 @media (min-width: 768px) {
     body {
-        padding: 40px;
-        /* More padding on desktop */
+        padding: 40px 40px 0 40px;
     }
 
     .intro-section {
         display: flex;
-        /* Arrange image and text side-by-side */
-        align-items: center;
-        /* Vertically align image and text */
+        align-items: flex-start;
         gap: 40px;
-        /* Space between image and text */
         padding: 40px;
+        text-align: left;
+        /* Default text align for section */
+    }
+
+    .intro-section .greeting,
+    .intro-section .bio {
+        text-align: left;
+        /* Keep greeting and bio left-aligned */
     }
 
     .image-container {
-        flex: 0 0 35%;
-        /* Image container takes up ~35% of the width */
-        max-width: 300px;
-        /* Max width for image container */
+        flex: 0 0 220px;
+        max-width: 220px;
         margin-bottom: 0;
-        /* Remove bottom margin on desktop */
-        text-align: left;
-        /* Align image container to the left */
+        text-align: center;
     }
 
     .profile-photo {
-        max-width: 100%;
-        /* Allow image to fill its container */
-        border-radius: 8px;
-        /* Square corners as in the draft */
+        border-radius: 10px;
     }
 
     .text-container {
         flex: 1;
-        /* Text container takes remaining space */
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        /* Default align items left */
     }
 
-    .bio {
+    .intro-section .bio {
         font-size: 1.3em;
-        /* Slightly larger text on desktop */
     }
+
+    /* === MODIFIED: Center connect section within text container on desktop === */
+    .connect-within-intro {
+        /* align-self: stretch; */
+        /* REMOVE or comment out stretch */
+        align-self: center;
+        /* ADD this to center the block horizontally */
+        width: 100%;
+        /* Optional: Ensure it can take width if needed for centering text inside */
+        text-align: center;
+        /* Keep text/links centered *within* the block */
+        margin-top: 40px;
+        padding-top: 25px;
+        border-top: 1px solid #eee;
+    }
+
+    /* Ensure heading is also centered if text-align on parent wasn't enough */
+    .connect-heading {
+        text-align: center;
+    }
+
+    .connect-links {
+        justify-content: center;
+        /* Keep links centered */
+    }
+
+    /* === END MODIFICATION === */
 
     .ventures-section {
+        padding: 40px 0;
+    }
+
+    .ventures-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+
+    .venture-item {
+        flex-direction: row;
+        align-items: center;
         text-align: left;
-        /* Align heading to the left */
-        padding: 30px 40px;
+        gap: 30px;
+        padding: 35px;
     }
 
-    .logo-container {
-        justify-content: flex-start;
-        /* Align logos to the left */
+    .company-logo-link {
+        flex: 0 0 130px;
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    .company-logo {
+        max-height: 65px;
+    }
+
+    .venture-details {
+        flex: 1;
+    }
+
+    .site-footer .container {
+        padding: 0 40px;
+    }
+
+    .footer-content {
+        gap: 10px 20px;
     }
 }
-
-/* Optional: Subtle background curves (simulated with gradients) */
-body::before {
-    content: '';
-    position: fixed;
-    /* Or absolute if container is relative */
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 150px;
-    /* Adjust height */
-    background: linear-gradient(to bottom, rgba(220, 220, 220, 0.3), transparent);
-    z-index: -1;
-    /* Place behind content */
-    border-bottom-left-radius: 50% 30px;
-    /* Create curve */
-    border-bottom-right-radius: 50% 30px;
-    /* Create curve */
-}
-
-body::after {
-    content: '';
-    position: fixed;
-    /* Or absolute */
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 150px;
-    /* Adjust height */
-    background: linear-gradient(to top, rgba(220, 220, 220, 0.3), transparent);
-    z-index: -1;
-    border-top-left-radius: 50% 30px;
-    /* Create curve */
-    border-top-right-radius: 50% 30px;
-    /* Create curve */
-}
-
-/* Adjust container padding if using fixed pseudo-elements to avoid overlap */
-/* .container { padding-top: 20px; padding-bottom: 20px; position: relative; z-index: 1; } */
-/* Note: The pseudo-element curves are a simple approximation and might need tweaking */
